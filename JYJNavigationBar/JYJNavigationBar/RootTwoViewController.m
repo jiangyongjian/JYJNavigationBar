@@ -9,6 +9,10 @@
 #import "RootTwoViewController.h"
 #import "UIImage+Extension.h"
 
+#define FBStatusBarH ([UIApplication sharedApplication].statusBarFrame.size.height)
+//** navigationBar的高度 */
+#define FBNavigationBarH (FBStatusBarH + 44)
+
 @interface RootTwoViewController () <UITableViewDataSource, UITableViewDelegate>
 /** tableView */
 @property (nonatomic, weak) UITableView *tableView;
@@ -23,7 +27,7 @@
     if (!_navBarView) {
         UIView *navBarView = [[UIView alloc] init];
         navBarView.backgroundColor = BXColor(253, 171, 47);
-        navBarView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 64);
+        navBarView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, FBNavigationBarH);
         [self.view addSubview:navBarView];
         self.navBarView = navBarView;
     }

@@ -12,6 +12,10 @@
 /** 滚动到多少高度开始出现 */
 static CGFloat const startH = 0;
 
+#define FBStatusBarH ([UIApplication sharedApplication].statusBarFrame.size.height)
+//** navigationBar的高度 */
+#define FBNavigationBarH (FBStatusBarH + 44)
+
 @interface RootOneViewController () <UITableViewDataSource, UITableViewDelegate>
 
 /** 导航条View */
@@ -23,7 +27,7 @@ static CGFloat const startH = 0;
 - (UIView *)navBarView {
     if (!_navBarView) {
         UIView *navBarView = [[UIView alloc] init];
-        navBarView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 64);
+        navBarView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, FBNavigationBarH);
         [self.view addSubview:navBarView];
         self.navBarView = navBarView;
     }
@@ -67,10 +71,10 @@ static CGFloat const startH = 0;
     CGFloat offsetY = scrollView.contentOffset.y;
 
     if (offsetY > -imageH + startH) {
-        CGFloat alpha = MIN(1, 1 - ((-imageH + startH + 64 - offsetY) / 64));
+        CGFloat alpha = MIN(1, 1 - ((-imageH + startH + FBNavigationBarH - offsetY) / FBNavigationBarH));
  
         self.navBarView.backgroundColor = BXAlphaColor(253, 171, 47, alpha);
-        if (offsetY >= (-imageH + startH + 64)){
+        if (offsetY >= (-imageH + startH + FBNavigationBarH)){
             if (self.titleName) {
                 self.navigationItem.title = self.titleName;
             }
